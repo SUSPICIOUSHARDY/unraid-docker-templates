@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>mailserver</Name>
+  <Repository>hardware/mailserver:1.1-stable</Repository>
+  <Registry>https://hub.docker.com/r/hardware/mailserver//Dockerfile/</Registry>
+  <Network>proxynet</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://hub.docker.com/r/hardware/mailserver/</Support>
+  <Project/>
+  <Overview>Simple and full-featured mail server using Docker   Converted By Community Applications   Always verify this template (and values) against the dockerhub support page for the container</Overview>
+  <Category/>
+  <WebUI>http://[IP]:[PORT:11334]</WebUI>
+  <TemplateURL/>
+  <Icon>https://d36jcksde1wxzq.cloudfront.net/be7833db9bddb4494d2a7c3dd659199a.png</Icon>
+  <ExtraParams>--restart always -p 25:25 -p 143:143 -p 587:587 -p 993:993 -p 4190:4190 -p 11334:11334</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1551788407</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Simple and full-featured mail server using Docker   Converted By Community Applications   Always verify this template (and values) against the dockerhub support page for the container</Description>
+  <Networking>
+    <Mode>proxynet</Mode>
+    <Publish/>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/mail/</HostDir>
+      <ContainerDir>/var/mail/</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/NginxProxyManager/letsencrypt/live/mail.electrovive.com.au/</HostDir>
+      <ContainerDir>/etc/letsencrypt/</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/traefik/acme/</HostDir>
+      <ContainerDir>/etc/letsencrypt/acme</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/mailserver/postfix/</HostDir>
+      <ContainerDir>/etc/postfix/</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>maildb</Value>
+      <Name>DBHOST</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>3306</Value>
+      <Name>DBPORT</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value></Value>
+      <Name>DBPASS</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value></Value>
+      <Name>RSPAMD_PASSWORD</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>mail.electrovive.com.au</Value>
+      <Name>MAIL_HOST</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>false</Value>
+      <Name>DEBUG_MODE</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>electrovive.com.au</Value>
+      <Name>DOMAIN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>mail.electrovive.com.au</Value>
+      <Name>FQDN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>mailredis</Value>
+      <Name>REDIS_HOST</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Labels>
+    <Label>
+      <Value>11334</Value>
+      <Name>traefik.port</Name>
+      <Mode/>
+    </Label>
+    <Label>
+      <Value>proxynet</Value>
+      <Name>traefik.docker.network</Name>
+      <Mode/>
+    </Label>
+    <Label>
+      <Value>spam</Value>
+      <Name>traefik.backend</Name>
+      <Mode/>
+    </Label>
+    <Label>
+      <Value>Host:spam.electrovive.com.au</Value>
+      <Name>traefik.frontend.rule</Name>
+      <Mode/>
+    </Label>
+    <Label>
+      <Value>true</Value>
+      <Name>traefik.enable</Name>
+      <Mode/>
+    </Label>
+  </Labels>
+  <Config Name="Mail Directory" Target="/var/mail/" Default="/mnt/user/mail/" Mode="rw" Description="Mail Directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/mail/</Config>
+  <Config Name="SSL Cert directory" Target="/etc/letsencrypt/" Default="/mnt/user/appdata/NginxProxyManager/letsencrypt/live/npm-1/" Mode="rw" Description="SSL Cert directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/NginxProxyManager/letsencrypt/live/mail.electrovive.com.au/</Config>
+  <Config Name="DATABASE HOST NAME" Target="DBHOST" Default="mariadb" Mode="" Description="Use container name if on docker DNS" Type="Variable" Display="always" Required="true" Mask="false">maildb</Config>
+  <Config Name="DATABASE Port" Target="DBPORT" Default="3306" Mode="" Description="DATABASE Port if connecting to IP address with a non-standard SQL port" Type="Variable" Display="always" Required="false" Mask="false">3306</Config>
+  <Config Name="DATABASE PASSWORD for Postfix" Target="DBPASS" Default="" Mode="" Description="DATABASE PASSWORD for Postfix" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="RSPAMD_PASSWORD" Target="RSPAMD_PASSWORD" Default="" Mode="" Description="RSPAMD_PASSWORD&#13;&#10;" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="MAIL HOST Name" Target="MAIL_HOST" Default="" Mode="" Description="MAIL HOST Name" Type="Variable" Display="always" Required="false" Mask="false">mail.electrovive.com.au</Config>
+  <Config Name="DEBUG?" Target="DEBUG_MODE" Default="" Mode="" Description="DEBUG?" Type="Variable" Display="always" Required="false" Mask="false">false</Config>
+  <Config Name="DOMAIN name" Target="DOMAIN" Default="" Mode="" Description="DOMAIN name" Type="Variable" Display="always" Required="false" Mask="false">electrovive.com.au</Config>
+  <Config Name="FQDN" Target="FQDN" Default="" Mode="" Description="Fully Qualified Domain Name for this server" Type="Variable" Display="always" Required="false" Mask="false">mail.electrovive.com.au</Config>
+  <Config Name="REDIS_HOST" Target="REDIS_HOST" Default="" Mode="" Description="REDIS_HOST Name" Type="Variable" Display="always" Required="false" Mask="false">mailredis</Config>
+  <Config Name="traefik.port" Target="traefik.port" Default="" Mode="" Description="traefik.port" Type="Label" Display="always" Required="false" Mask="false">11334</Config>
+  <Config Name="traefik.docker.network" Target="traefik.docker.network" Default="" Mode="" Description="traefik.docker.network" Type="Label" Display="always" Required="false" Mask="false">proxynet</Config>
+  <Config Name="traefik.backend" Target="traefik.backend" Default="" Mode="" Description="traefik.backend" Type="Label" Display="always" Required="false" Mask="false">spam</Config>
+  <Config Name="traefik.frontend.rule" Target="traefik.frontend.rule" Default="" Mode="" Description="traefik.frontend.rule&#13;&#10;" Type="Label" Display="always" Required="false" Mask="false">Host:spam.electrovive.com.au</Config>
+  <Config Name="traefik.enable" Target="traefik.enable" Default="" Mode="" Description="traefik.enable" Type="Label" Display="always" Required="false" Mask="false">true</Config>
+  <Config Name="Traefik SSL Certificate Directory" Target="/etc/letsencrypt/acme" Default="" Mode="rw" Description="Traefik SSL Certificate Directory" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/traefik/acme/</Config>
+  <Config Name="Postfix Config Directory" Target="/etc/postfix/" Default="" Mode="rw" Description="Postfix Config Directory" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/mailserver/postfix/</Config>
+</Container>
